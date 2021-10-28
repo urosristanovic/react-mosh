@@ -1,17 +1,16 @@
-import React from 'react';
 import _ from 'lodash';
-import { Link } from 'react-router-dom';
+import React, { Component } from 'react';
 
-class TableBody extends React.Component {
+class TableBody extends Component {
   renderCell = (item, column) => {
-    if (column.path === 'title') {
-      const link = '/movies/' + item._id;
-      item.title = (
-        <Link to={link} className='no-decoration'>
-          {item.title}
-        </Link>
-      );
-    }
+    // if (column.path === 'title') {
+    //   const url = '/movies/' + item._id;
+    //   item.title = (
+    //     <Link to={url} className='no-decoration'>
+    //       {item.title}
+    //     </Link>
+    //   );
+    // }
     if (column.content) {
       return column.content(item);
     }

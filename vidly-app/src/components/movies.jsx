@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { getGenres } from '../services/fakeGenreService';
 import { deleteMovie, getMovies } from '../services/fakeMovieService';
@@ -5,7 +6,6 @@ import { paginate } from '../utils/paginate';
 import ListGroup from './common/listGroup';
 import Pagination from './common/pagination';
 import MoviesTable from './moviesTable';
-import _ from 'lodash';
 
 class Movies extends Component {
   state = {
