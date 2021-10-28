@@ -15,3 +15,6 @@ code {
 .clickable {
   cursor: pointer;
 }
+.no-decoration {
+  text-decoration: none;
+}

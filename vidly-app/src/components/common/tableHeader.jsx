@@ -3,7 +3,6 @@ import React from 'react';
 class TableHeader extends React.Component {
   raiseSort = path => {
     const sortColumn = { ...this.props.sortColumn };
-    console.log(sortColumn);
     if (sortColumn.path === path) {
       sortColumn.order = sortColumn.order === 'asc' ? 'desc' : 'asc';
     } else {
