@@ -1,19 +1,26 @@
 import './App.css';
 import Movies from './components/movies';
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Redirect, Switch } from 'react-router-dom';
 import NavBar from './components/common/navbar';
 import Customers from './components/customers';
 import Rentals from './components/rentals';
+import NotFound from './components/notFound';
 
 function App() {
   return (
     <div>
       <NavBar />
       <main className='container'>
-        <Route path='/customers' component={Customers} />
-        <Route path='/rentals' component={Rentals} />
-        <Route path='/movies' component={Movies} />
-        <Redirect from='/' to='/movies' />
+        <Switch>
+          <Route path='/customers' exact component={Customers} />
+          <Route path='/rentals' exact component={Rentals} />
+          <Route path='/movies' exact component={Movies} />
+
+          <Redirect exact from='/' to='/movies' />
+
+          <Route path='/not-found' component={NotFound} />
+          <Redirect to='/not-found' />
+        </Switch>
       </main>
     </div>
   );
