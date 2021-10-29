@@ -1,11 +1,11 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { getGenres } from '../services/fakeGenreService';
-import { deleteMovie, getMovies } from '../services/fakeMovieService';
+import { getMovies } from '../services/fakeMovieService';
 import { paginate } from '../utils/paginate';
 import ListGroup from './common/listGroup';
 import Pagination from './common/pagination';
 import MoviesTable from './moviesTable';
-import _ from 'lodash';
 
 class Movies extends Component {
   state = {
@@ -17,13 +17,14 @@ class Movies extends Component {
   };
 
   componentDidMount() {
-    const genres = [{ name: 'All Genres', _id: '' }, ...getGenres()];
+    const genres = [{ _id: '', name: 'All Genres' }, ...getGenres()];
+
     this.setState({ movies: getMovies(), genres });
   }
 
   handleDelete = movie => {
-    deleteMovie(movie._id);
-    this.setState({ movies: getMovies() });
+    const movies = this.state.movies.filter(m => m._id !== movie._id);
+    this.setState({ movies });
   };
 
   handleLike = movie => {
@@ -61,6 +62,7 @@ class Movies extends Component {
         : allMovies;
 
     const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
+
     const movies = paginate(sorted, currentPage, pageSize);
 
     return { totalCount: filtered.length, data: movies };
@@ -72,10 +74,10 @@ class Movies extends Component {
 
     if (count === 0) return <p>There are no movies in the database.</p>;
 
-    const { totalCount, data } = this.getPagedData();
+    const { totalCount, data: movies } = this.getPagedData();
 
     return (
-      <div className='row p-4'>
+      <div className='row'>
         <div className='col-3'>
           <ListGroup
             items={this.state.genres}
@@ -86,7 +88,7 @@ class Movies extends Component {
         <div className='col'>
           <p>Showing {totalCount} movies in the database.</p>
           <MoviesTable
-            movies={data}
+            movies={movies}
             sortColumn={sortColumn}
             onLike={this.handleLike}
             onDelete={this.handleDelete}
@@ -103,4 +105,5 @@ class Movies extends Component {
     );
   }
 }
+
 export default Movies;
