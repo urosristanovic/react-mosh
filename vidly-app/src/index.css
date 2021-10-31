@@ -15,3 +15,6 @@ code {
 .clickable {
   cursor: pointer;
 }
+.no-underline {
+  text-decoration: none;
+}
