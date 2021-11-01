@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { getGenres } from '../services/fakeGenreService';
-import { getMovies } from '../services/fakeMovieService';
+import { deleteMovie, getMovies } from '../services/fakeMovieService';
 import { paginate } from '../utils/paginate';
 import ListGroup from './common/listGroup';
 import Pagination from './common/pagination';
@@ -27,8 +27,8 @@ class Movies extends Component {
   }
 
   handleDelete = movie => {
-    const movies = this.state.movies.filter(m => m._id !== movie._id);
-    this.setState({ movies });
+    deleteMovie(movie._id);
+    this.setState({ movies: getMovies() });
   };
 
   handleLike = movie => {
