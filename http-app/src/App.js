@@ -2,6 +2,19 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import './App.css';
 
+axios.interceptors.response.use(null, error => {
+  const expectedError =
+    error.response &&
+    error.response.status >= 400 &&
+    error.response.status < 500;
+  if (!expectedError) {
+    console.log('Logging the error', error);
+    alert('An unexpected error occurred.');
+  }
+
+  return Promise.reject(error);
+});
+
 const apiEndPoint = 'https://jsonplaceholder.typicode.com/posts';
 
 class App extends Component {
@@ -26,9 +39,6 @@ class App extends Component {
 
   handleUpdate = async post => {
     post.title = 'UPDATED';
-    // axios.patch(apiEndPoint + '/' + post.id, {title: post.title});
-    // const { data } = await axios.put(apiEndPoint + '/' + post.id, post);
-    // not good way to get data, we should call get to get data
     const posts = [...this.state.posts];
     const index = posts.indexOf(post);
     posts[index] = { ...post };
@@ -43,20 +53,9 @@ class App extends Component {
 
     try {
       await axios.delete(apiEndPoint + '/' + post.id);
-      // throw new Error('');
     } catch (ex) {
-      // Expected (404: not found, 400: bad request) - CLIENT ERRORS
-      // - Display a specific error message
-      //
-      // Unexpected (network down, server down, db down, bug)
-      // - Log them
-      // - Display a generic and friendly error message
-
       if (ex.response && ex.response.status === 404) {
         alert('This post has already been deleted.');
-      } else {
-        console.log('Logging the error', ex);
-        alert('An unexpected error occurred.');
       }
       this.setState({ posts: originalPosts });
     }
