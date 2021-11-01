@@ -1,5 +1,5 @@
 import axios from 'axios';
-import * as Sentry from '@sentry/react';
+import logger from './logService';
 
 axios.interceptors.response.use(null, error => {
   const expectedError =
@@ -8,8 +8,7 @@ axios.interceptors.response.use(null, error => {
     error.response.status < 500;
 
   if (!expectedError) {
-    throw new Error('Logging the error', error);
-    // Sentry.captureException(error);
+    logger.log(error);
     // alert('An unexpected error occurred.');
   }
 
