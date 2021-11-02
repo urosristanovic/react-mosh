@@ -29,9 +29,10 @@ class Movies extends Component {
     this.setState({ movies: moviesArray, genres });
   }
 
-  handleDelete = movie => {
-    deleteMovie(movie._id);
-    this.setState({ movies: getMovies() });
+  handleDelete = async movie => {
+    await deleteMovie(movie._id);
+    const movies = await getMovies();
+    this.setState({ movies });
   };
 
   handleLike = movie => {

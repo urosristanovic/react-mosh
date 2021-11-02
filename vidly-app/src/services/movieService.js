@@ -1,4 +1,5 @@
 import config from '../config.json';
+import { getGenres } from './genreService';
 import http from './httpService.js';
 
 export async function getMovies() {
@@ -6,14 +7,31 @@ export async function getMovies() {
   return response.data;
 }
 
-export async function getMovie(id) {
-  const movies = await getMovies();
-  return movies.find(m => m._id === id);
+export async function getMovie(movieId) {
+  const response = http.get(config.apiEndPointMovies + '/' + movieId);
+  return (await response).data;
 }
-export async function deleteMovie(id) {
-  const movies = await getMovies();
+export async function deleteMovie(movieId) {
+  return http.delete(config.apiEndPointMovies + '/' + movieId);
+}
 
-  let movieInDb = movies.find(m => m._id === id);
-  movies.splice(movies.indexOf(movieInDb), 1);
-  return movieInDb;
+export async function saveMovie(movie) {
+  if (movie._id) {
+    const body = {
+      ...movie,
+    };
+    delete body._id;
+    return await http.put(config.apiEndPointMovies + '/' + movie._id, body);
+  }
+
+  return http.post(config.apiEndPointMovies, movie);
+  // handleAdd = async () => {
+  //   const obj = {
+  //     title: 'a',
+  //     body: 'b',
+  //   };
+  //   const { data: post } = await http.post(config.apiEndPoint, obj);
+  //   const posts = [post, ...this.state.posts];
+  //   this.setState({ posts });
+  // };
 }
