@@ -1,8 +1,10 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { getGenres } from '../services/fakeGenreService';
-import { deleteMovie, getMovies } from '../services/fakeMovieService';
+// import { getGenres } from '../services/fakeGenreService';
+// import { deleteMovie, getMovies } from '../services/fakeMovieService';
+import { getGenres } from '../services/genreService';
+import { deleteMovie, getMovies } from '../services/movieService';
 import { paginate } from '../utils/paginate';
 import ListGroup from './common/listGroup';
 import Pagination from './common/pagination';
@@ -20,10 +22,11 @@ class Movies extends Component {
     sortColumn: { path: 'title', order: 'asc' },
   };
 
-  componentDidMount() {
-    const genres = [{ _id: '', name: 'All Genres' }, ...getGenres()];
-
-    this.setState({ movies: getMovies(), genres });
+  async componentDidMount() {
+    const genresArray = await getGenres();
+    const genres = [{ _id: '', name: 'All Genres' }, ...genresArray];
+    const moviesArray = await getMovies();
+    this.setState({ movies: moviesArray, genres });
   }
 
   handleDelete = movie => {
