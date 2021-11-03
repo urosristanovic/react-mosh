@@ -1,5 +1,11 @@
 # react-mosh
 
+If you have everything set</br>
+- Go in <i>vidly-api-node</i>, open <b>cmd</b> and run <b>node index.js</b>.
+- Then go to <i>vidly-app</i>, open <b>cmd</b> and run <b>npm start</b>.
+
+If you don't have everything set, follow steps below.
+
 Open <b>cmd</b> and run <b>mongod</b>.
 
 Don't have: <i>C:\data\db\ </i>? </br>
