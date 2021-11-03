@@ -4,11 +4,7 @@ import Form from './common/form';
 
 class RegisterForm extends Form {
   state = {
-    data: {
-      username: '',
-      password: '',
-      name: '',
-    },
+    data: { username: '', password: '', name: '' },
     errors: {},
   };
 
@@ -19,6 +15,7 @@ class RegisterForm extends Form {
   };
 
   doSubmit = () => {
+    // Call the server
     console.log('Submitted');
   };
 
@@ -26,7 +23,7 @@ class RegisterForm extends Form {
     return (
       <div>
         <h1>Register</h1>
-        <form onSubmit={this.handleSubmit} action=''>
+        <form onSubmit={this.handleSubmit}>
           {this.renderInput('username', 'Username')}
           {this.renderInput('password', 'Password', 'password')}
           {this.renderInput('name', 'Name')}
