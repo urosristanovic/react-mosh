@@ -1,6 +1,6 @@
-import axios from "axios";
-import logger from "./logService";
-import { toast } from "react-toastify";
+import axios from 'axios';
+import logger from './logService';
+import { toast } from 'react-toastify';
 
 axios.interceptors.response.use(null, error => {
   const expectedError =
@@ -10,7 +10,7 @@ axios.interceptors.response.use(null, error => {
 
   if (!expectedError) {
     logger.log(error);
-    toast.error("An unexpected error occurrred.");
+    toast.error('An unexpected error occurrred.');
   }
 
   return Promise.reject(error);
@@ -20,5 +20,5 @@ export default {
   get: axios.get,
   post: axios.post,
   put: axios.put,
-  delete: axios.delete
+  delete: axios.delete,
 };
