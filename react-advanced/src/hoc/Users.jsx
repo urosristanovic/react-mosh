@@ -9,9 +9,8 @@ function Users(props) {
       const result = await axios('https://jsonplaceholder.typicode.com/users');
       setUsers(result.data);
     }
-
     getUsers();
-  });
+  }, []);
 
   return (
     <div>
