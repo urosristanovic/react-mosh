@@ -5,6 +5,7 @@ import Movie from './hoc/Movie';
 import Users from './hoc/Users';
 import Counter from './hooks/Counter';
 import UserContext from './context/userContext';
+import CartContext from './context/cartContext';
 
 class App extends Component {
   handleLoggedIn = username => {
@@ -21,19 +22,21 @@ class App extends Component {
 
   render() {
     return (
-      <UserContext.Provider
-        value={{
-          currentUser: this.state.currentUser,
-          onLoggedIn: this.handleLoggedIn,
-        }}
-      >
-        <div className='App'>
-          <MoviePage />
-          {/* <Movie id='1' />
+      <CartContext.Provider value={{ cart: [] }}>
+        <UserContext.Provider
+          value={{
+            currentUser: this.state.currentUser,
+            onLoggedIn: this.handleLoggedIn,
+          }}
+        >
+          <div className='App'>
+            <MoviePage />
+            {/* <Movie id='1' />
               <Counter />
-              <Users /> */}
-        </div>
-      </UserContext.Provider>
+            <Users /> */}
+          </div>
+        </UserContext.Provider>
+      </CartContext.Provider>
     );
   }
 }
