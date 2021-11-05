@@ -5,8 +5,10 @@ class Movie extends Component {
   render() {
     return (
       <div>
-        Movie
-        {this.props.showTooltip && <div>Some tooltip</div>}
+        <h1>
+          Movie
+          {this.props.showTooltip && <div>Some tooltip</div>}
+        </h1>
       </div>
     );
   }
