@@ -1,14 +1,13 @@
 import React, { useContext } from 'react';
 import UserContext from './userContext';
 
-const MovieRow = props => {
+const Login = () => {
   const userContext = useContext(UserContext);
-
   return (
     <div>
-      Movie Row: {userContext.currentUser ? userContext.currentUser.name : ''}
+      <button onClick={() => userContext.onLoggedIn('username')}>Login</button>
     </div>
   );
 };
 
-export default MovieRow;
+export default Login;

@@ -7,6 +7,12 @@ import Counter from './hooks/Counter';
 import UserContext from './context/userContext';
 
 class App extends Component {
+  handleLoggedIn = username => {
+    console.log('Getting the user: ' + username);
+    const user = { name: 'Mosh' };
+    this.setState({ currentUser: user });
+  };
+
   state = {
     currentUser: {
       name: 'Urosh',
@@ -15,7 +21,12 @@ class App extends Component {
 
   render() {
     return (
-      <UserContext.Provider value={this.state.currentUser}>
+      <UserContext.Provider
+        value={{
+          currentUser: this.state.currentUser,
+          onLoggedIn: this.handleLoggedIn,
+        }}
+      >
         <div className='App'>
           <MoviePage />
           {/* <Movie id='1' />
